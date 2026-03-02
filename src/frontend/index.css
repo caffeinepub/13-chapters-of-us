@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === FONT FACES === */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fonts/InstrumentSerif.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    /* === MIDNIGHT ROSE & STARDUST TOKENS === */
+    /* Deep Obsidian Black background */
+    --background: 0.07 0 0;
+    --foreground: 0.97 0 0;
+    
+    /* Glassmorphism card */
+    --card: 0.10 0 0;
+    --card-foreground: 0.97 0 0;
+    --popover: 0.12 0 0;
+    --popover-foreground: 0.97 0 0;
+    
+    /* Crimson Velvet primary */
+    --primary: 0.37 0.18 24;
+    --primary-foreground: 0.97 0 0;
+    
+    /* Pearl White secondary */
+    --secondary: 0.18 0 0;
+    --secondary-foreground: 0.97 0 0;
+    
+    --muted: 0.15 0 0;
+    --muted-foreground: 0.65 0 0;
+    
+    /* Crimson Velvet accent */
+    --accent: 0.37 0.18 24;
+    --accent-foreground: 0.97 0 0;
+    
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.97 0 0;
+    
+    --border: 0.22 0.05 24;
+    --input: 0.18 0 0;
+    --ring: 0.37 0.18 24;
+    
+    --chart-1: 0.37 0.18 24;
+    --chart-2: 0.70 0.12 50;
+    --chart-3: 0.55 0.08 180;
+    --chart-4: 0.80 0.15 90;
+    --chart-5: 0.60 0.20 320;
+    
+    --sidebar: 0.10 0 0;
+    --sidebar-foreground: 0.97 0 0;
+    --sidebar-primary: 0.37 0.18 24;
+    --sidebar-primary-foreground: 0.97 0 0;
+    --sidebar-accent: 0.18 0 0;
+    --sidebar-accent-foreground: 0.97 0 0;
+    --sidebar-border: 0.22 0.05 24;
+    --sidebar-ring: 0.37 0.18 24;
+    
+    --radius: 0.75rem;
+    
+    /* Custom anniversary tokens */
+    --obsidian: #0A0A0A;
+    --crimson: #800000;
+    --crimson-glow: #FF4444;
+    --pearl: #F8F8FF;
+    --pearl-dim: rgba(248, 248, 255, 0.7);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-color: #0A0A0A;
+    color: #F8F8FF;
+    font-family: "General Sans", sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* === CUSTOM ANIMATIONS === */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.05); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.05); }
+  70% { transform: scale(1); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0px); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+@keyframes shimmer-text {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    text-shadow: 0 0 20px rgba(248,248,255,0.4), 0 0 40px rgba(128,0,0,0.6), 0 0 80px rgba(128,0,0,0.3);
+  }
+  50% { 
+    text-shadow: 0 0 40px rgba(248,248,255,0.8), 0 0 80px rgba(128,0,0,0.9), 0 0 120px rgba(128,0,0,0.5);
+  }
+}
+
+@keyframes rise-fade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+@keyframes petal-fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes kiss-explode {
+  0% { transform: translate(0, 0) scale(0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: var(--tx) var(--ty) scale(1.5); opacity: 0; }
+}
+
+/* === UTILITY CLASSES === */
+.snap-slide {
+  scroll-snap-align: start;
+  height: 100vh;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.text-glow-crimson {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #F8F8FF 0%,
+    #FFD700 30%,
+    #F8F8FF 60%,
+    #FFD700 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 3s linear infinite;
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(128, 0, 0, 0.3);
+  border-radius: 16px;
+}
+
+/* Crimson glow box shadow */
+.crimson-glow {
+  box-shadow: 
+    0 0 20px rgba(128, 0, 0, 0.4),
+    0 0 60px rgba(128, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* 3D button effect */
+.btn-3d {
+  box-shadow:
+    0 6px 0 #4a0000,
+    0 8px 10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255,100,100,0.3);
+  transition: all 0.1s ease;
+}
+
+.btn-3d:active {
+  box-shadow:
+    0 2px 0 #4a0000,
+    0 3px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255,100,100,0.3);
+  transform: translateY(4px);
+}
+
+/* Star field */
+.star-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Scrollbar styling for letter slide */
+.letter-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.letter-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.letter-scroll::-webkit-scrollbar-thumb {
+  background: rgba(128, 0, 0, 0.5);
+  border-radius: 3px;
+}
